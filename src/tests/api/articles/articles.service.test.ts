@@ -20,7 +20,10 @@ describe('Testing article service', () => {
       .slice(articlesPerPage * nextPage);
     prismaClientMock.article.findMany.mockResolvedValue(nextPageArticles);
     const responseArticles = (
-      await articlesServiceProvider.getCurrentPageArticlesInfo(nextPage)
+      await articlesServiceProvider.getCurrentPageArticlesInfo(
+        nextPage,
+        ARTICLES_ARTICLES_NUMBER,
+      )
     ).articles;
 
     expect(responseArticles[0]).toEqual(nextPageArticles[0]);

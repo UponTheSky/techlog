@@ -14,8 +14,10 @@ export const errorHandler: ErrorRequestHandler = (
   error,
   _request,
   response,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _next,
 ): void => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   logger.error(error);
   error instanceof HttpError
     ? response.status(error.status).json({

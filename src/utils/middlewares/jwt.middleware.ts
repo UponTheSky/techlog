@@ -19,7 +19,7 @@ export const jwtHandler: RequestHandler = (request, _response, next) => {
     if (token && !request.url.startsWith('/api/admin/login')) {
       jwt.verify(token, SECRET_KEY, (err, decodedToken) => {
         if (!decodedToken || !(decodedToken as jwt.JwtPayload).userId) {
-          throw new UnAuthorizedError(`invalid token: ${err?.message}`);
+          throw new UnAuthorizedError(`invalid token: ${err?.message ?? ''}`);
         }
 
         request.decodedToken = decodedToken as jwt.JwtPayload;
