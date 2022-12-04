@@ -1,7 +1,15 @@
 import { Request, RequestHandler } from 'express';
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 import { UnAuthorizedError } from '../../common/exceptions';
 import { SECRET_KEY } from '../config';
+
+declare global {
+  namespace Express {
+    interface Request {
+      decodedToken?: JwtPayload;
+    }
+  }
+}
 
 const parseTokenFromHeader = (request: Request): string | null => {
   const authorization = request.get('authorization');

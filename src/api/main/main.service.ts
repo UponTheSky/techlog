@@ -18,6 +18,7 @@ export class MainServiceProvider implements ServiceProvider<ArticleDTO> {
 
     staticFileList.forEach(file => {
       let fileUrl = `${rootPath}/${file}`;
+      let markdownData = '';
       switch (file) {
         case 'picture':
           fileUrl = `${fileUrl}.png`;
@@ -28,7 +29,7 @@ export class MainServiceProvider implements ServiceProvider<ArticleDTO> {
           break;
         case 'shortIntro':
           fileUrl = `${fileUrl}.md`;
-          const markdownData = fs.readFileSync(fileUrl, { encoding: 'utf-8' });
+          markdownData = fs.readFileSync(fileUrl, { encoding: 'utf-8' });
           staticFiles = {
             ...staticFiles,
             [file]: markdownData,
