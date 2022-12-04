@@ -171,10 +171,7 @@ export class AdminController implements Controller<ArticleDTO> {
 
       const token = await this.loginServiceProvider.validateUserInfo(loginDTO);
 
-      response
-        .status(301)
-        .json({ token })
-        .redirect(`${request.baseUrl}/articles`);
+      response.status(201).json({ token });
     } catch (error) {
       next(error);
     }

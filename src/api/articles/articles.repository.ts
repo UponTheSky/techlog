@@ -59,7 +59,10 @@ export class ArticlesRepository implements Repository<ArticleDTO> {
         where: {
           articleId: id,
         },
-        data,
+        data: {
+          ...data,
+          updatedAt: new Date(Date.now()),
+        },
       });
     } catch (error) {
       if (error instanceof Prisma.NotFoundError) {
@@ -79,6 +82,8 @@ export class ArticlesRepository implements Repository<ArticleDTO> {
 
     return await this.dbClient.create({
       data: {
+        createdAt: new Date(Date.now()),
+        updatedAt: new Date(Date.now()),
         thumbnail,
         title,
         excerpt,

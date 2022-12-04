@@ -1,37 +1,45 @@
 import { ServiceProvider } from '../../common/interfaces/service';
 import { MainResponse, ArticleDTO, StaticFileList } from './main.dto';
+import { MainRepository } from './main.repository';
+
 import { getMonthsBefore } from '../../utils/date';
 import { STATIC_ROOT } from '../../utils/config';
-import { MainRepository } from './main.repository';
+import fs from 'fs';
+import path from 'path';
 
 export class MainServiceProvider implements ServiceProvider<ArticleDTO> {
   repository = new MainRepository();
 
-  getStaticFileUrls = (
+  getStaticFiles = (
     staticFileList: StaticFileList,
-  ): MainResponse['mainUrls'] => {
-    let staticFileUrls = {} as MainResponse['mainUrls'];
-    const rootPath = `${STATIC_ROOT}/main`;
+  ): MainResponse['mainInfos'] => {
+    let staticFiles = {} as MainResponse['mainInfos'];
+    const rootPath = path.resolve(`${__dirname}/../../../${STATIC_ROOT}/main`);
 
     staticFileList.forEach(file => {
-      let ext = '';
+      let fileUrl = `${rootPath}/${file}`;
       switch (file) {
         case 'picture':
-          ext = 'png';
+          fileUrl = `${fileUrl}.png`;
+          staticFiles = {
+            ...staticFiles,
+            [file]: fileUrl,
+          };
           break;
         case 'shortIntro':
-          ext = 'md';
+          fileUrl = `${fileUrl}.md`;
+          const markdownData = fs.readFileSync(fileUrl, { encoding: 'utf-8' });
+          staticFiles = {
+            ...staticFiles,
+            [file]: markdownData,
+          };
           break;
         default:
           break;
       }
-      staticFileUrls = {
-        ...staticFileUrls,
-        [file]: `/${rootPath}/${file}.${ext}`,
-      };
     });
 
-    return staticFileUrls;
+    return staticFiles;
   };
 
   getRecentArticles = async (months: number) => {

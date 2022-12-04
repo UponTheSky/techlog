@@ -25,19 +25,15 @@ describe('Testing main controller', () => {
       .expect(200)
       .expect('Content-Type', /application\/json/);
 
-    expect(response.body).toHaveProperty('mainUrls');
-    expect(response.body.mainUrls).toHaveProperty('picture');
-    expect(response.body.mainUrls).toHaveProperty('shortIntro');
+    expect(response.body).toHaveProperty('mainInfos');
+    expect(response.body.mainInfos).toHaveProperty('picture');
+    expect(response.body.mainInfos).toHaveProperty('shortIntro');
 
     expect(response.body).toHaveProperty('articles');
     expect(response.body.articles[0]).toHaveProperty('thumbnail');
     expect(response.body.articles[0]).toHaveProperty('title');
     expect(response.body.articles[0]).toHaveProperty('excerpt');
     expect(response.body.articles[0]).toHaveProperty('articleId');
-
-    expect(response.body).toHaveProperty('menuUrls');
-    expect(response.body.menuUrls).toHaveProperty('me');
-    expect(response.body.menuUrls).toHaveProperty('articles');
   });
 });
 

@@ -4,16 +4,12 @@ import { Url } from '../../common/types';
 export type ArticleDTO = Article;
 
 export interface MainResponse {
-  mainUrls: {
+  mainInfos: {
     picture: Url;
-    shortIntro: Url;
+    shortIntro: string;
   };
   articles: ArticleDTO[];
-  menuUrls: {
-    me: Url;
-    articles: Url;
-  };
 }
 
-export type StaticFileList = (keyof MainResponse['mainUrls'])[];
+export type StaticFileList = (keyof MainResponse['mainInfos'])[];
 export const staticFileList = ['picture', 'shortIntro'] as StaticFileList;

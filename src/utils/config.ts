@@ -7,7 +7,7 @@ export const DATABASE_URL = process.env.DATABASE_URL as string;
 export const PORT = process.env.PORT as string;
 
 // api/main, api/me config
-export const STATIC_ROOT = 'public';
+export const STATIC_ROOT = '/public';
 export const MAIN_ARTICLES_NUMBER = 4;
 
 // api/articles config

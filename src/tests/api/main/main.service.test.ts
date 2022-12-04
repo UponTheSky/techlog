@@ -12,14 +12,11 @@ describe('Testing main service', () => {
       | 'picture'
       | 'shortIntro'
     )[];
-    const staticFileUrls =
-      mainServiceProvider.getStaticFileUrls(staticFileList);
+    const staticFiles = mainServiceProvider.getStaticFiles(staticFileList);
 
-    expect(
-      Object.values<string>(staticFileUrls).filter(
-        url => !!url.match(/\/public/),
-      ),
-    ).toHaveLength(staticFileList.length);
+    Object.values(staticFiles).forEach(file => {
+      expect(typeof file === 'string').toBeTruthy();
+    });
   });
 
   it('Load articles from the DB', async () => {

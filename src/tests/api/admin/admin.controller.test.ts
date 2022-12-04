@@ -64,7 +64,7 @@ describe('Testing admin page & login', () => {
           userId: 'test',
           password: 'test',
         })
-        .expect(301);
+        .expect(201);
 
       expect(response.body).toHaveProperty('token');
     });
@@ -140,7 +140,7 @@ describe('Testing admin page & login', () => {
           userId: 'test',
           password: 'test',
         })
-        .expect(301);
+        .expect(201);
     });
   });
 
@@ -165,7 +165,7 @@ describe('Testing admin page & login', () => {
           userId: 'test',
           password: 'test',
         })
-        .expect(301);
+        .expect(201);
     });
   });
 
