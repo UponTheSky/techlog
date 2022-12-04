@@ -14,21 +14,24 @@ export class MainServiceProvider implements ServiceProvider<ArticleDTO> {
     staticFileList: StaticFileList,
   ): MainResponse['mainInfos'] => {
     let staticFiles = {} as MainResponse['mainInfos'];
-    const rootPath = path.resolve(`${__dirname}/../../../${STATIC_ROOT}/main`);
+    const rootPathForImage = `${STATIC_ROOT}/main`;
+    const rootPathForString = path.resolve(
+      `${__dirname}/../../../${STATIC_ROOT}/main`,
+    );
 
     staticFileList.forEach(file => {
-      let fileUrl = `${rootPath}/${file}`;
+      let fileUrl = '';
       let markdownData = '';
       switch (file) {
         case 'picture':
-          fileUrl = `${fileUrl}.png`;
+          fileUrl = `${rootPathForImage}/${file}.png`;
           staticFiles = {
             ...staticFiles,
             [file]: fileUrl,
           };
           break;
         case 'shortIntro':
-          fileUrl = `${fileUrl}.md`;
+          fileUrl = `${rootPathForString}/${file}.md`;
           markdownData = fs.readFileSync(fileUrl, { encoding: 'utf-8' });
           staticFiles = {
             ...staticFiles,

@@ -1,5 +1,6 @@
 import express from 'express';
 import morgan from 'morgan';
+import cors from 'cors';
 import path from 'path';
 
 import { controllers } from './api';
@@ -13,6 +14,9 @@ import {
 export const app = express();
 
 // add basic middlewares
+const corsOptions = {};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(morgan('combined'));
 app.use('/public', express.static(path.join(__dirname, '../public')));

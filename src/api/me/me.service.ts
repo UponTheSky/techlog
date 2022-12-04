@@ -11,21 +11,24 @@ export class MeServiceProvider implements ServiceProvider<any> {
 
   getStaticFiles = (staticFileList: StaticFileList): MeResponse['meInfos'] => {
     let staticFiles = {} as MeResponse['meInfos'];
-    const rootPath = path.resolve(`${__dirname}/../../../${STATIC_ROOT}/me`);
+    const rootPathForImage = `${STATIC_ROOT}/me`;
+    const rootPathForString = path.resolve(
+      `${__dirname}/../../../${STATIC_ROOT}/me`,
+    );
 
     staticFileList.forEach(file => {
-      let fileUrl = `${rootPath}/${file}`;
+      let fileUrl = '';
       let markdownData = '';
       switch (file) {
         case 'profile':
-          fileUrl = `${fileUrl}.png`;
+          fileUrl = `${rootPathForImage}/${file}.png`;
           staticFiles = {
             ...staticFiles,
             [file]: fileUrl,
           };
           break;
         default:
-          fileUrl = `${fileUrl}.md`;
+          fileUrl = `${rootPathForString}/${file}.md`;
           markdownData = fs.readFileSync(fileUrl, { encoding: 'utf-8' });
           staticFiles = {
             ...staticFiles,
