@@ -1,17 +1,17 @@
 import { Url } from '../../common/types';
 
 export interface MeResponse {
-  meUrls: {
+  meInfos: {
     profile: Url;
-    shortIntro: Url;
-    education: Url;
-    workExperience: Url;
-    compSci: Url;
-    hobbies: Url;
+    shortIntro: string;
+    education: string;
+    workExperience: string;
+    compSci: string;
+    hobbies: string;
   };
 }
 
-export type StaticFileList = (keyof MeResponse['meUrls'])[];
+export type StaticFileList = (keyof MeResponse['meInfos'])[];
 export const staticFileList = [
   'profile',
   'shortIntro',

@@ -12,13 +12,13 @@ describe('Testing me controller', () => {
       .expect(200)
       .expect('Content-Type', /application\/json/);
 
-    expect(response.body).toHaveProperty('meUrls');
-    expect(Object.keys(response.body.meUrls)).toHaveLength(
+    expect(response.body).toHaveProperty('meInfos');
+    expect(Object.keys(response.body.meInfos)).toHaveLength(
       staticFileList.length,
     );
 
     staticFileList.forEach(file => {
-      expect(response.body.meUrls).toHaveProperty(file);
+      expect(response.body.meInfos).toHaveProperty(file);
     });
   });
 });

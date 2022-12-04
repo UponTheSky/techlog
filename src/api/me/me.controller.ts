@@ -28,9 +28,9 @@ export class MeController implements Controller<any> {
 
   private getMePage: RequestHandler = (_request, response, next) => {
     try {
-      const meUrls = this.serviceProvider.getStaticFileUrls(staticFileList);
+      const meInfos = this.serviceProvider.getStaticFiles(staticFileList);
       response.json({
-        meUrls,
+        meInfos,
       });
     } catch (error) {
       next(error);

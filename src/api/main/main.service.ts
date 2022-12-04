@@ -38,7 +38,6 @@ export class MainServiceProvider implements ServiceProvider<ArticleDTO> {
           break;
       }
     });
-
     return staticFiles;
   };
 

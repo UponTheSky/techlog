@@ -5,25 +5,11 @@ describe('Testing me service', () => {
   const meServiceProvider = new MeServiceProvider();
 
   it('Load static files', async () => {
-    const meResponse = {
-      meUrl: {
-        profile: '/public/me/profile.png',
-        shortIntro: '/public/me/shortIntro.md',
-        workExperience: '/public/me/workExperience.md',
-        education: '/public/me/education.md',
-        compSci: '/public/me/compSci.md',
-        hobbies: '/public/me/hobbies.md',
-        externalLinks: '/public/me/externalLinks.md',
-      },
-    };
-    const staticFileUrls = meServiceProvider.getStaticFileUrls(staticFileList);
+    const staticFiles = meServiceProvider.getStaticFiles(staticFileList);
 
-    expect(
-      Object.values<string>(staticFileUrls).filter(
-        url => !!url.match(/\/public\/me\/\w+\.(png|md)/),
-      ),
-    ).toHaveLength(staticFileList.length);
-
-    expect(staticFileUrls).toEqual(meResponse['meUrl']);
+    Object.values<string>(staticFiles).forEach(info => {
+      expect(typeof info === 'string').toBeTruthy();
+      expect(info.length > 0).toBeTruthy();
+    });
   });
 });
