@@ -7,7 +7,7 @@ import {
   ARTICLES_ARTICLES_NUMBER,
   ARTICLES_DEFAULT_CURRENT_PAGE,
 } from '../../utils/config';
-import { BadRequestError, NotFoundError } from '../../common/exceptions';
+import { BadRequestError } from '../../common/exceptions';
 
 export class ArticlesController implements Controller<ArticleDTO> {
   path: string;
@@ -69,10 +69,6 @@ export class ArticlesController implements Controller<ArticleDTO> {
       }
 
       const article = await this.serviceProvider.getUniqueArticle(articleId);
-
-      if (!article) {
-        throw new NotFoundError(`no corresponding data to ${articleId}`);
-      }
 
       response.json(article);
     } catch (error) {

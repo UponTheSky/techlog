@@ -15,10 +15,11 @@ export const errorHandler: ErrorRequestHandler = (
   _request,
   response,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  _next,
+  next,
 ): void => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   logger.error(error);
+
   error instanceof HttpError
     ? response.status(error.status).json({
         error: `${error.name}: ${error.message}`,
@@ -26,5 +27,6 @@ export const errorHandler: ErrorRequestHandler = (
     : response.status(500).json({
         error: 'internal server error',
       });
-  return;
+
+  next(error);
 };

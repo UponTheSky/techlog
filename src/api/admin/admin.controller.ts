@@ -103,9 +103,13 @@ export class AdminController implements Controller<ArticleDTO> {
     next,
   ) => {
     try {
-      const newArticle = await this.serviceProvider.create(
-        request.body as Partial<ArticleDTO>,
-      );
+      const data = request.body as Partial<ArticleDTO>;
+
+      if (!data) {
+        throw new BadRequestError('no data provided for updating the article');
+      }
+
+      const newArticle = await this.serviceProvider.create(data);
 
       response.status(201).json(newArticle);
     } catch (error) {
@@ -168,6 +172,12 @@ export class AdminController implements Controller<ArticleDTO> {
   private login: RequestHandler = async (request, response, next) => {
     try {
       const loginDTO = request.body as LoginDTO;
+
+      if (!loginDTO.userId || !loginDTO.password) {
+        throw new BadRequestError(
+          'need to provide userId and password for login',
+        );
+      }
 
       const token = await this.loginServiceProvider.validateUserInfo(loginDTO);
 
