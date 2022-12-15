@@ -10,7 +10,7 @@
     "migrate:test": "dotenv -e .env.test -- npx prisma migrate dev --name init-test",
     "dev": "dotenv -e .env ts-node-dev ./src/server.ts",
     "test": "yarn migrate:test && dotenv -e .env.test jest --runInBand ./src/tests",
-    "build": "tsc",
+    "build": "tsc --project ./tsconfig.build.json",
     "start": "yarn build && node ./dist/server.js",
     "prepare": "husky install"
   },
